@@ -5,12 +5,17 @@ MigrationBackup/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+.DS_Store
+project.lock.json
+
 # SQL Server files
 *.mdf
 *.ldf
 *.ndf
+
 # NuGet Packages
 *.nupkg
+
 # NuGet Symbol Packages
 *.snupkg
 # The packages folder can be ignored because of Package Restore
@@ -45,6 +50,7 @@ publish/
 # checkin your Azure Web App publish settings, but sensitive information contained
 # in these scripts will be unencrypted
 PublishScripts/
+
 # Files built by Visual Studio
 *_i.c
 *_p.c
@@ -73,6 +79,7 @@ PublishScripts/
 *.pidb
 *.svclog
 *.scc
+
 # .NET Core
 project.lock.json
 project.fragment.lock.json
@@ -80,9 +87,11 @@ artifacts/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
+
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 .vscode/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -98,3 +107,14 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Compiled Sources
+*.com 
+*.class 
+*.dll
+*.exe 
+*.o 
+*.so 
