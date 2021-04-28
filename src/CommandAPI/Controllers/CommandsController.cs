@@ -1,5 +1,5 @@
 // using Directives
-using System.Collections.Generic;   // supoorts IEnumerable
+using System.Collections.Generic;   // supports IEnumerable
 using CommandAPI.Data;
 using CommandAPI.Models;
 using Microsoft.AspNetCore.Mvc;     // everything else 
