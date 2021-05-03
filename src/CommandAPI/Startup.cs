@@ -25,6 +25,7 @@ namespace CommandAPI
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            /*
             // Read the connection string from appsetting.json
             services.AddTransient<IDbConnection>((sp) => new MySqlConnection(this.Configuration.GetConnectionString("MySQLConnection")));
 
@@ -36,7 +37,9 @@ namespace CommandAPI
                 builder.Password = Configuration["Pwd"];
             
             services.AddTransient<IDbConnection>((sp) => new MySqlConnection(builder.ConnectionString));
+            */
 
+            services.AddTransient<IDbConnection>((sp) => new MySqlConnection(this.Configuration.GetConnectionString("MySQLConnection")));
             services.AddControllers();
             //services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();  // only as mock. Delete once real repo is set up
             services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();   // real one
