@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace CommandAPI
 {
@@ -25,22 +26,21 @@ namespace CommandAPI
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            /*
+            
             // Read the connection string from appsetting.json
-            services.AddTransient<IDbConnection>((sp) => new MySqlConnection(this.Configuration.GetConnectionString("MySQLConnection")));
+            services.AddTransient<IDbConnection>(_ => new MySqlConnection(this.Configuration.GetConnectionString("MySQLConnection")));
 
             // With secret key 
-            var builder = new MySqlConnectionStringBuilder();
-            builder.ConnectionString = 
-                Configuration.GetConnectionString("MySQLConnection");
-                builder.UserID= Configuration["Uid"];
-                builder.Password = Configuration["Pwd"];
+            /*var builder = new MySqlConnectionStringBuilder();
+            builder.ConnectionString = Configuration.GetConnectionString("MySQLConnection");
+                builder.UserID = Configuration["Uid"];
+                builder.Password = "Configuration["Pwd"];*/
+                
+            //services.AddTransient<IDbConnection>(_ => new MySqlConnection(builder.ConnectionString));
             
-            services.AddTransient<IDbConnection>((sp) => new MySqlConnection(builder.ConnectionString));
-            */
-
-            services.AddTransient<IDbConnection>((sp) => new MySqlConnection(this.Configuration.GetConnectionString("MySQLConnection")));
+            
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();  // only as mock. Delete once real repo is set up
             services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();   // real one
         }

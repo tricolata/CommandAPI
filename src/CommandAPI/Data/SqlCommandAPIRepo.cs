@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using CommandAPI.Models;
@@ -15,7 +16,10 @@ namespace CommandAPI.Data
 
         public void CreateCommand(Command cmd)
         {
-            throw new System.NotImplementedException();
+            if (cmd == null) throw new ArgumentNullException(nameof(cmd));
+            string sql = @"INSERT INTO CommandItems (Howto, Platform, commandLine)
+            VALUES (@howto, @platform, @commandLine);";
+            _dbConnection.Execute(sql, new {howto = cmd.HowTo, platform=cmd.Platform, commandLine=cmd.CommandLine});
         }
 
         public void DeleteCommand(Command cmd)
