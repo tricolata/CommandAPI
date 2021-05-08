@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using System.Text.Json.Serialization;
 
 namespace CommandAPI
 {
@@ -43,6 +44,7 @@ namespace CommandAPI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();  // only as mock. Delete once real repo is set up
             services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();   // real one
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,7 +5,7 @@ namespace CommandAPI.Data
 {
     public class MockCommandAPIRepo : ICommandAPIRepo
     {
-        public void CreateCommand(Command cmd)
+        public int CreateCommand(Command cmd)
         {
             throw new System.NotImplementedException();
         }
