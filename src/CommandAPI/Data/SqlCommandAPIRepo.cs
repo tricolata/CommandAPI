@@ -39,7 +39,9 @@ namespace CommandAPI.Data
         }
         public void DeleteCommand(Command cmd)
         {
-            throw new System.NotImplementedException();
+            if (cmd == null) throw new ArgumentNullException(nameof(cmd));
+            string sql = @"DELETE FROM CommandItems WHERE id=@id";
+            _dbConnection.Execute(sql, new {id = cmd.Id});
         }
         public bool SaveChanges()
         {

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.UserSecrets;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json.Serialization;
 
 namespace CommandAPI
 {
@@ -44,6 +44,11 @@ namespace CommandAPI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();  // only as mock. Delete once real repo is set up
             services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();   // real one
+
+            // used to parse thru our patch document
+            services.AddControllers().AddNewtonsoftJson(s => {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
             
         }
 

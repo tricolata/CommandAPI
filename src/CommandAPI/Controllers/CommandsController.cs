@@ -5,6 +5,7 @@ using CommandAPI.Models;
 using Microsoft.AspNetCore.Mvc;     // everything else 
 using AutoMapper;
 using CommandAPI.Dtos;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace CommandAPI.Controllers
 {
@@ -55,6 +56,33 @@ namespace CommandAPI.Controllers
             commandToUpdate.Id = id;
             
             _repository.UpdateCommand(commandToUpdate);
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public ActionResult PartialCommandUpdate(int id, JsonPatchDocument<CommandUpdateDto> patchDoc)
+        {
+            var commandModelFromRepo = _repository.GetCommandById(id);
+            if (commandModelFromRepo == null) return NotFound();
+
+            var commandToPatch = _mapper.Map<CommandUpdateDto>(commandModelFromRepo);
+            // applies the patch to the command
+            patchDoc.ApplyTo(commandToPatch, ModelState);
+            // tryvalidatemodel is from ControllerBase and validate using model's state (annotation)
+            if (!TryValidateModel(commandToPatch)) return ValidationProblem(ModelState);
+
+            _mapper.Map(commandToPatch, commandModelFromRepo);
+            _repository.UpdateCommand(commandModelFromRepo);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCommand(int id)
+        {
+            var commandModelFromRepo = _repository.GetCommandById(id);
+            if (commandModelFromRepo == null) return NotFound();
+
+            _repository.DeleteCommand(commandModelFromRepo);
             return NoContent();
         }
     }
